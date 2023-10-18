@@ -65,13 +65,13 @@ func initTable() *gorm.DB {
 	}
 }
 
-func createTable() {
+func pageExample() {
 	db := initTable()
 
 	// 声明查询插件
 	var page pages_go.Pages
 	//声明分页页数和当前页，默认每页10条，当前第一页
-	pageStart := pages_go.PageBase{}
+	pageBase := pages_go.PageBase{}
 	// 声明查询的基础表实体
 	var userModel User
 	// 声明查询结果返回的结构体
@@ -86,8 +86,8 @@ func createTable() {
 	// 该值可能是前端传的，用以替换默认的查询策略
 	queryMap := map[string]string{"age": "99", "updatedAt": "1"}
 
-	// 进行分页查询
-	err := page.StartPage(db, &pageStart, queryMap, &userSearch, &userModel, &userResp, nil, false, true)
+	// 进行插件查询
+	err := page.StartPage(db, &pageBase, queryMap, &userSearch, &userModel, &userResp, nil, false, true)
 	if err != nil {
 		return
 	} else {
@@ -100,5 +100,5 @@ func createTable() {
 }
 
 func TestPage(t *testing.T) {
-	createTable()
+	pageExample()
 }
